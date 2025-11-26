@@ -1,0 +1,118 @@
+# 📦 Guía de Instalación
+
+## ⚠️ Importante: Resolución de Conflictos de Dependencias
+
+Si encuentras errores al instalar las dependencias, sigue estos pasos:
+
+## 🚀 Instalación Paso a Paso
+
+### 1. Instalar Dependencias del Proyecto Principal
+
+```bash
+npm install --legacy-peer-deps
+```
+
+**¿Por qué `--legacy-peer-deps`?**
+- Hay un conflicto menor entre versiones de `react-test-renderer`
+- Esta flag permite instalar las dependencias ignorando conflictos de peer dependencies
+- No afecta la funcionalidad del proyecto
+
+### 2. Instalar Dependencias del Backend
+
+```bash
+cd backend
+npm install
+cd ..
+```
+
+### 3. Verificar que Todo Funciona
+
+```bash
+# Ejecutar tests
+npm test
+
+# Deberías ver:
+# Test Suites: 4 passed, 4 total
+# Tests:       21 passed, 21 total
+```
+
+## ✅ Verificación Completa
+
+Después de instalar, verifica que todo funciona:
+
+```bash
+# 1. Tests pasan
+npm test
+
+# 2. Linting funciona
+npm run lint
+
+# 3. Backend funciona
+cd backend
+npm start
+# Deberías ver: "🚀 Servidor corriendo en http://localhost:3000"
+```
+
+## 🔧 Solución de Problemas
+
+### Error: "jest no se reconoce como comando"
+
+**Solución:**
+```bash
+npm install --legacy-peer-deps
+```
+
+### Error: "ERESOLVE unable to resolve dependency tree"
+
+**Solución:**
+```bash
+npm install --legacy-peer-deps
+```
+
+### Error: Tests fallan con AsyncStorage
+
+**Solución:** Ya está resuelto en `jest.setup.js` con mocks. Si persiste:
+
+```bash
+# Limpiar cache y reinstalar
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+```
+
+### Error: Backend no inicia
+
+**Solución:**
+```bash
+cd backend
+npm install
+npm start
+```
+
+## 📝 Notas
+
+- ✅ Usa `--legacy-peer-deps` siempre que instales dependencias
+- ✅ Los tests están configurados y funcionando
+- ✅ Los mocks están configurados en `jest.setup.js`
+- ✅ El backend es independiente y se instala por separado
+
+## 🎯 Comandos Rápidos
+
+```bash
+# Instalar todo
+npm install --legacy-peer-deps
+cd backend && npm install && cd ..
+
+# Ejecutar tests
+npm test
+
+# Ejecutar app
+npm start
+
+# Ejecutar backend
+cd backend && npm start
+```
+
+---
+
+**¡Listo para desarrollar!** 🚀
+

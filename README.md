@@ -34,8 +34,10 @@ cd mini-app
 
 2. Instalar dependencias:
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
+
+**Nota:** Usa `--legacy-peer-deps` para evitar conflictos de dependencias. Ver `INSTALACION.md` para más detalles.
 
 3. Instalar dependencias del backend:
 ```bash
