@@ -19,11 +19,11 @@ export default function App() {
 
   useEffect(() => {
     // Solicitar permisos de notificaciones al iniciar
-    Notifications.requestPermissionsAsync();
+    Notifications.requestPermissionsAsync().catch(console.error);
 
     // Cargar tareas desde storage al iniciar
-    loadTasksFromStorage();
-  }, []);
+    loadTasksFromStorage().catch(console.error);
+  }, [loadTasksFromStorage]);
 
   return (
     <NavigationContainer>

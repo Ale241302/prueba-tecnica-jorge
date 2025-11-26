@@ -13,6 +13,23 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Ruta raíz - Información de la API
+app.get('/', (req, res) => {
+  res.json({
+    message: 'TaskSync API - Backend funcionando correctamente',
+    version: '1.0.0',
+    endpoints: {
+      'GET /api/tasks': 'Obtener todas las tareas',
+      'GET /api/tasks/:id': 'Obtener una tarea por ID',
+      'POST /api/tasks': 'Crear una nueva tarea',
+      'PUT /api/tasks/:id': 'Actualizar una tarea',
+      'DELETE /api/tasks/:id': 'Eliminar una tarea',
+      'GET /health': 'Health check del servidor',
+    },
+    ejemplo: 'Prueba accediendo a: http://localhost:3000/api/tasks',
+  });
+});
+
 // Base de datos en memoria (simulada)
 let tasks = [
   {

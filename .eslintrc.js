@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
   extends: [
-    'expo',
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
@@ -11,6 +10,10 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+  env: {
+    'react-native/react-native': true,
   },
 };
 

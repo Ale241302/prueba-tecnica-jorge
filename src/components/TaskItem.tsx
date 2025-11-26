@@ -21,7 +21,28 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onPress }) => {
     toggleTask(task.id);
   };
 
+  const handlePress = () => {
+    if (task.completed) {
+      Alert.alert(
+        'Tarea completada',
+        'Las tareas completadas no se pueden editar. Desmarca la tarea primero si quieres editarla.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+    onPress();
+  };
+
   const handleDelete = () => {
+    if (task.completed) {
+      Alert.alert(
+        'No se puede eliminar',
+        'Las tareas completadas no se pueden eliminar. Desmarca la tarea primero si quieres eliminarla.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
     Alert.alert(
       'Eliminar tarea',
       `¿Estás seguro de que quieres eliminar "${task.title}"?`,
@@ -39,8 +60,8 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onPress }) => {
   return (
     <TouchableOpacity
       style={[styles.container, task.completed && styles.completed]}
-      onPress={onPress}
-      activeOpacity={0.7}
+      onPress={handlePress}
+      activeOpacity={task.completed ? 1 : 0.7}
     >
       <TouchableOpacity
         style={[styles.checkbox, task.completed && styles.checkboxChecked]}
@@ -69,11 +90,20 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onPress }) => {
       </View>
 
       <TouchableOpacity
-        style={styles.deleteButton}
+        style={[
+          styles.deleteButton,
+          task.completed && styles.deleteButtonDisabled,
+        ]}
         onPress={handleDelete}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        disabled={task.completed}
       >
-        <Text style={styles.deleteText}>🗑️</Text>
+        <Text style={[
+          styles.deleteText,
+          task.completed && styles.deleteTextDisabled,
+        ]}>
+          {task.completed ? '🔒' : '🗑️'}
+        </Text>
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -135,8 +165,14 @@ const styles = StyleSheet.create({
   deleteButton: {
     padding: 8,
   },
+  deleteButtonDisabled: {
+    opacity: 0.5,
+  },
   deleteText: {
     fontSize: 20,
+  },
+  deleteTextDisabled: {
+    opacity: 0.3,
   },
 });
 

@@ -45,24 +45,8 @@ export const TaskFormScreen: React.FC = () => {
   useEffect(() => {
     navigation.setOptions({
       title: taskId ? 'Editar Tarea' : 'Nueva Tarea',
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={handleSave}
-          disabled={!title.trim() || loading}
-          style={styles.saveButton}
-        >
-          <Text
-            style={[
-              styles.saveButtonText,
-              (!title.trim() || loading) && styles.saveButtonTextDisabled,
-            ]}
-          >
-            Guardar
-          </Text>
-        </TouchableOpacity>
-      ),
     });
-  }, [title, loading, taskId]);
+  }, [taskId]);
 
   const handleSave = async () => {
     if (!title.trim()) {
@@ -108,6 +92,19 @@ export const TaskFormScreen: React.FC = () => {
           />
         </View>
       </View>
+
+      <TouchableOpacity
+        style={[
+          styles.saveButtonLarge,
+          (!title.trim() || loading) && styles.saveButtonDisabled,
+        ]}
+        onPress={handleSave}
+        disabled={!title.trim() || loading}
+      >
+        <Text style={styles.saveButtonLargeText}>
+          {loading ? 'Guardando...' : taskId ? 'Actualizar Tarea' : 'Guardar Tarea'}
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -144,17 +141,26 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  saveButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+  saveButtonLarge: {
+    backgroundColor: '#4CAF50',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  saveButtonText: {
-    color: '#4CAF50',
+  saveButtonDisabled: {
+    backgroundColor: '#ccc',
+    opacity: 0.6,
+  },
+  saveButtonLargeText: {
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
-  },
-  saveButtonTextDisabled: {
-    color: '#999',
   },
 });
 

@@ -38,10 +38,10 @@ export const TaskListScreen: React.FC = () => {
 
   useEffect(() => {
     // Cargar desde storage primero para mostrar datos inmediatamente
-    loadTasksFromStorage();
+    loadTasksFromStorage().catch(console.error);
     // Luego intentar obtener desde API
-    fetchTasks();
-  }, []);
+    fetchTasks().catch(console.error);
+  }, [loadTasksFromStorage, fetchTasks]);
 
   const handleRefresh = () => {
     fetchTasks();

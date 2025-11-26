@@ -1,8 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import { Task, TaskFormData, ApiError } from '../types';
 
+// Para emulador usa: 'http://localhost:3000/api'
+// Para dispositivo físico usa tu IP local: 'http://192.168.0.121:3000/api'
+// @ts-ignore - __DEV__ es una variable global de React Native
 const API_BASE_URL = __DEV__
-  ? 'http://localhost:3000/api'
+  ? 'http://192.168.0.121:3000/api' // Cambia a localhost si usas emulador
   : 'https://your-production-api.com/api';
 
 const apiClient = axios.create({

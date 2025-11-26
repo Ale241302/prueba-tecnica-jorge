@@ -1,5 +1,28 @@
 # 📦 Guía de Instalación
 
+## ⚠️ IMPORTANTE: Versión de Expo Go
+
+**Esta app usa SDK 51 de Expo**. Necesitas instalar la versión correcta de Expo Go:
+
+### Instalar Expo Go para SDK 51
+
+1. **Si ya tienes Expo Go instalado con SDK 54:**
+   - Desinstala la app actual de Expo Go
+   
+2. **Descarga Expo Go compatible con SDK 51:**
+   - Ve a: https://expo.dev/go
+   - Busca "SDK 51" o descarga la versión compatible
+   - También puedes buscar versiones anteriores en APKMirror o Google Play
+
+3. **Alternativa (Google Play):**
+   - Busca "Expo Go" en Google Play Store
+   - Verifica que sea compatible con SDK 51
+   - Si solo aparece SDK 54, usa el link de expo.dev/go
+
+**Link directo para Expo Go SDK 51:**
+- Android: https://expo.dev/go?sdkVersion=51
+- iOS: https://expo.dev/go?platform=ios&sdkVersion=51
+
 ## ⚠️ Importante: Resolución de Conflictos de Dependencias
 
 Si encuentras errores al instalar las dependencias, sigue estos pasos:

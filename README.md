@@ -26,6 +26,18 @@ Aplicación móvil desarrollada con React Native y Expo para la gestión de tare
 
 ## 📦 Instalación
 
+### ⚠️ IMPORTANTE: Expo Go SDK 51
+
+**Esta app requiere Expo Go SDK 51.** Si tienes instalada una versión más reciente, necesitas:
+
+1. **Desinstalar Expo Go actual** (si tienes SDK 54)
+2. **Instalar Expo Go SDK 51:**
+   - **Link directo Android**: https://expo.dev/go?sdkVersion=51
+   - **Link directo iOS**: https://expo.dev/go?platform=ios&sdkVersion=51
+   - O visita: https://expo.dev/go y busca SDK 51
+
+### Instalación del Proyecto
+
 1. Clonar el repositorio:
 ```bash
 git clone <url-del-repositorio>
@@ -48,6 +60,14 @@ cd ..
 
 ## ⚙️ Configuración
 
+### ⚠️ IMPORTANTE: Expo Go SDK 51
+
+**Esta aplicación requiere Expo Go SDK 51.** Descarga la versión correcta:
+
+- **Android**: https://expo.dev/go?sdkVersion=51
+- **iOS**: https://expo.dev/go?platform=ios&sdkVersion=51
+- **Página principal**: https://expo.dev/go
+
 ### Backend API
 
 El backend debe estar corriendo antes de iniciar la aplicación móvil.
@@ -55,6 +75,7 @@ El backend debe estar corriendo antes de iniciar la aplicación móvil.
 1. Iniciar el servidor backend:
 ```bash
 cd backend
+npm install
 npm start
 ```
 
@@ -76,22 +97,28 @@ const API_BASE_URL = __DEV__
 
 ### Desarrollo
 
-1. Iniciar el backend (en una terminal):
+1. **Iniciar el backend** (en una terminal):
 ```bash
 cd backend
+npm install
 npm start
 ```
 
-2. Iniciar Expo (en otra terminal):
+Deberías ver: `🚀 Servidor corriendo en http://localhost:3000`
+
+2. **Iniciar Expo con Tunnel** (en otra terminal):
 ```bash
-npm start
+npx expo start --tunnel
 ```
 
-3. Opciones para ejecutar:
-   - Presiona `a` para Android
-   - Presiona `i` para iOS
-   - Presiona `w` para Web
-   - Escanea el código QR con Expo Go (app móvil)
+**⚠️ IMPORTANTE:** Usa `--tunnel` para evitar problemas de conectividad.
+
+3. **Escanear el código QR:**
+   - Abre **Expo Go SDK 51** en tu dispositivo
+   - Escanea el código QR que aparece en la terminal
+   - Espera a que la app cargue
+
+**Nota:** Si el puerto 8081 está ocupado, Expo usará automáticamente otro puerto. El modo tunnel funciona independientemente del puerto.
 
 ### Testing
 
