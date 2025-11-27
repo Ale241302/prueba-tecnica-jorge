@@ -7,18 +7,22 @@
 #### 1. Explica la diferencia entre useEffect, useMemo y useCallback. ¿Cuándo usarías cada uno para mejorar el rendimiento en móviles?
 
 **useEffect:**
+
 - Hook para efectos secundarios (side effects)
 - Se ejecuta después del render
 - Útil para: llamadas API, suscripciones, manipulación del DOM, limpieza de recursos
 - No afecta directamente el rendimiento del render, pero puede optimizar cuándo se ejecutan los efectos
+- Usar cleanup functions para evitar memory leaks, especialmente con suscripciones y listeners
 
 **useMemo:**
+
 - Memoiza el resultado de un cálculo costoso
 - Solo recalcula cuando las dependencias cambian
 - Útil para: cálculos pesados, filtrado/transformación de arrays grandes, evitar re-renders innecesarios
 - Mejora el rendimiento evitando cálculos repetidos
 
 **useCallback:**
+
 - Memoiza una función
 - Retorna la misma referencia de función si las dependencias no cambian
 - Útil para: funciones pasadas como props a componentes memoizados, evitar recrear funciones en cada render
@@ -36,9 +40,12 @@ const filteredTasks = useMemo(() => {
 }, [tasks, searchQuery, filter]);
 
 // useCallback: Función para toggle que se pasa a muchos items
-const handleToggle = useCallback((id: number) => {
-  toggleTask(id);
-}, [toggleTask]);
+const handleToggle = useCallback(
+  (id: number) => {
+    toggleTask(id);
+  },
+  [toggleTask]
+);
 
 // useEffect: Cargar datos al montar
 useEffect(() => {
@@ -47,6 +54,7 @@ useEffect(() => {
 ```
 
 **Cuándo usar cada uno:**
+
 - **useMemo**: Cuando tienes cálculos costosos que no quieres repetir en cada render
 - **useCallback**: Cuando pasas funciones a componentes memoizados o como dependencias de otros hooks
 - **useEffect**: Para efectos secundarios que deben ejecutarse después del render
@@ -56,20 +64,18 @@ useEffect(() => {
 **Cache de datos con React Query o Apollo Client:**
 
 **React Query:**
+
 ```typescript
-const { data, isLoading, refetch } = useQuery(
-  'tasks',
-  fetchTasks,
-  {
-    staleTime: 5 * 60 * 1000, // 5 minutos
-    cacheTime: 10 * 60 * 1000, // 10 minutos en cache
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  }
-);
+const { data, isLoading, refetch } = useQuery('tasks', fetchTasks, {
+  staleTime: 5 * 60 * 1000, // 5 minutos
+  cacheTime: 10 * 60 * 1000, // 10 minutos en cache
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+});
 ```
 
 **Apollo Client:**
+
 ```typescript
 const { data, loading } = useQuery(GET_TASKS, {
   fetchPolicy: 'cache-first', // Usar cache primero
@@ -128,15 +134,13 @@ const { data, refetch } = useQuery('key', fetcher, {
 });
 
 // Opción 3: Debounce
-const debouncedFetch = useMemo(
-  () => debounce(fetchData, 300),
-  [fetchData]
-);
+const debouncedFetch = useMemo(() => debounce(fetchData, 300), [fetchData]);
 ```
 
 #### 3. ¿Qué diferencia existe entre desarrollar una app con Expo versus React Native CLI?
 
 **Expo:**
+
 - ✅ Desarrollo más rápido y fácil
 - ✅ Over-the-air updates (actualizaciones sin pasar por stores)
 - ✅ Builds en la nube con EAS Build
@@ -147,6 +151,7 @@ const debouncedFetch = useMemo(
 - ❌ Menos control sobre código nativo
 
 **React Native CLI:**
+
 - ✅ Control total sobre código nativo
 - ✅ Puede usar cualquier librería nativa
 - ✅ Bundle más pequeño
@@ -160,6 +165,7 @@ const debouncedFetch = useMemo(
 **Recomendación: Expo con EAS Build**
 
 Razones:
+
 1. **Cámara**: `expo-camera` funciona perfectamente y es fácil de usar
 2. **Deep linking**: Expo maneja esto automáticamente con `expo-linking` y `expo-router`
 3. **Builds automatizadas**: EAS Build es excelente para CI/CD, más fácil que Fastlane
@@ -171,6 +177,7 @@ Si necesitas librerías muy específicas no disponibles en Expo, usar **Expo bar
 #### 4. Describe cómo optimizarías el rendimiento de una app React Native en:
 
 **Renderizado de listas:**
+
 - Usar `FlatList` en lugar de `ScrollView` + `map` (virtualización)
 - `getItemLayout` para listas de altura fija (evita cálculos)
 - `removeClippedSubviews={true}` (elimina vistas fuera de pantalla)
@@ -195,6 +202,7 @@ Si necesitas librerías muy específicas no disponibles en Expo, usar **Expo bar
 ```
 
 **Navegación:**
+
 - Usar `React Navigation` (optimizado y mantenido)
 - Lazy loading de pantallas con `React.lazy` o carga condicional
 - `useMemo` para opciones de navegación
@@ -202,15 +210,17 @@ Si necesitas librerías muy específicas no disponibles en Expo, usar **Expo bar
 - Usar `useCallback` para funciones pasadas a `navigation.setOptions`
 
 **Tamaño del bundle:**
+
 - Code splitting con lazy imports
 - Tree shaking (eliminar código no usado)
 - Usar `react-native-bundle-visualizer` para identificar problemas
 - Eliminar dependencias innecesarias
-- Usar `hermes` engine (más eficiente)
+- Usar `hermes` engine (más eficiente), reduce startup time hasta 50% y memoria hasta 30% en Android
 - Optimizar imágenes y assets
 - Considerar usar `react-native-reanimated` en lugar de `Animated` para mejor rendimiento
 
 **Imágenes y assets:**
+
 - Optimizar imágenes antes de incluirlas (comprimir, redimensionar)
 - Usar formatos WebP cuando sea posible (mejor compresión)
 - Lazy loading de imágenes con `react-native-fast-image`
@@ -331,6 +341,7 @@ src/
 ```
 
 **Principios de organización:**
+
 - **Separación de responsabilidades**: Cada carpeta tiene un propósito claro
 - **Componentes pequeños**: Fáciles de testear y reutilizar
 - **Hooks para lógica compartida**: Evitar duplicación
@@ -455,6 +466,7 @@ end
 ```
 
 **Flujo típico:**
+
 1. **Push a branch** → Trigger CI
 2. **Run tests** → Si pasan, continuar
 3. **Lint check** → Verificar código
@@ -463,6 +475,6 @@ end
 6. **OTA Update** → Expo Updates para cambios JS (solo Expo)
 
 **Ventajas de cada uno:**
+
 - **EAS Build**: Más fácil, menos configuración, builds en la nube
 - **Fastlane**: Más control, builds locales, más flexible
-
