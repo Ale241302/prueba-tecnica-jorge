@@ -59,6 +59,10 @@ useEffect(() => {
 - **useCallback**: Cuando pasas funciones a componentes memoizados o como dependencias de otros hooks
 - **useEffect**: Para efectos secundarios que deben ejecutarse después del render
 
+**Nota sobre rendimiento móvil con useEffect:**
+
+Es crucial usar cleanup functions en `useEffect` para prevenir memory leaks, especialmente con suscripciones, listeners y timers que pueden impactar severamente el rendimiento en dispositivos móviles con memoria limitada.
+
 #### 2. Explica cómo manejarías:
 
 **Cache de datos con React Query o Apollo Client:**
